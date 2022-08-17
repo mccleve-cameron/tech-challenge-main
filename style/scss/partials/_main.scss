@@ -1,0 +1,134 @@
+$white: #ffffff;
+$light-one: #f5f6f7;
+$light-two: #eceeef;
+$light-three: #e0e3e5;
+$light-four: #d3d8dc;
+$light-five: #b1bbc2;
+$light-six: #7d8d9a;
+
+$dark-six: #60707d;
+$dark-five: #506676;
+$dark-four: #485d6c;
+$dark-three: #364652;
+$dark-two: #1c2730;
+$dark-one: #121d25;
+$black: #000000;
+
+$text-lightest: #7d8d9a;
+$text-light: #425563;
+$text: #303d46;
+
+$brand-primary: #ff6900;
+$brand-secondary: #1bd0ff;
+$brand-dark: #425563;
+
+$luminary-teal: #17c4f1;
+$luminary-teal-dark: rgb(12, 103, 126);
+
+$blue-primary: #2485e1;
+$blue-secondary: #1bd0ff;
+$green-primary: #3dca59;
+$yellow-primary: #facb34;
+$orange-primary: #ff920b;
+$red-primary: #f54700;
+$fuchsia-primary: #e03486;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+  background-color: $light-one;
+  flex-flow: column nowrap;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  padding: 50px;
+  display: flex;
+
+  h3 {
+    align-self: flex-start;
+    margin-bottom: 2rem;
+    color: #ff3c17;
+  }
+
+  section.card {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: $white;
+    flex-direction: column;
+    padding: 19px 33px;
+    box-shadow: 0px 1px 7px #cacaca;
+    border-radius: 8px;
+    table {
+      width: 100%;
+      text-align: left;
+      border-collapse: separate;
+      border-spacing: 0 5px;
+      th {
+        border-bottom: 1px solid #e0e4e5;
+      }
+      td,
+      th {
+        padding: 5px 5px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+td#name {
+  color: #037ae4;
+}
+
+.task-modal {
+  background-color: #ffffff;
+  padding: 19px 33px;
+  box-shadow: 0px 1px 7px #cacaca;
+  border-radius: 8px;
+  width: 50%;
+  margin: 7rem auto;
+  height: 30rem;
+  overflow: auto;
+  display: none;
+
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+}
+
+.task-modal.visible {
+  display: block;
+}
+
+li {
+  list-style: none;
+  font-weight: bold;
+  padding: 10px;
+}
+
+tr:hover {
+  background-color: #a7a7a7;
+}
+
+#backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: #0000002e;
+  z-index: 10;
+  pointer-events: none;
+  display: none;
+}
+
+#backdrop.visible {
+  display: block;
+  pointer-events: all;
+}

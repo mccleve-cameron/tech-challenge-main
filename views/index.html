@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style/scss/style.css" />
+  </head>
+
+  <body>
+    <h3>Shine Solar</h3>
+
+    <section class="card">
+      <table class="list">
+        <thead>
+          <th>Name</th>
+          <th>Website</th>
+          <th>Email</th>
+          <th>Address</th>
+        </thead>
+        <template id="user-row">
+          <tr id="userId" onclick="userSelected(id)">
+            <td id="name">Name</td>
+            <td id="website">Website</td>
+            <td id="email">Email</td>
+            <td id="address">
+              <span id="street"></span>,
+              <span id="city"></span>
+              <span id="zipcode"></span>
+            </td>
+          </tr>
+        </template>
+
+        <tbody class="users"></tbody>
+      </table>
+
+      <div id="backdrop"></div>
+      <div id="modal" class="task-modal">
+        <ul class="tasks"></ul>
+      </div>
+    </section>
+
+    <script>
+      const userTable = document.querySelector('.users');
+      const userTemplate = document.getElementById('user-row');
+      const modalBackdrop = document.getElementById('backdrop');
+      const displayModal = document.getElementById('modal');
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://jsonplaceholder.typicode.com/users'); // false for synchronous request
+      xhr.onload = function () {
+        const users = JSON.parse(xhr.response);
+        for (const user of users) {
+          const userElement = document.importNode(userTemplate.content, true);
+          userElement.getElementById('userId').id = user.id;
+          userElement.getElementById('name').textContent = user.name;
+          userElement.getElementById('website').textContent = user.website;
+          userElement.getElementById('email').textContent = user.email;
+          userElement.getElementById('street').textContent =
+            user.address.street;
+          userElement.getElementById('city').textContent = user.address.city;
+          userElement.getElementById('zipcode').textContent =
+            user.address.zipcode;
+          userTable.append(userElement);
+        }
+      };
+      xhr.send();
+
+      function userSelected(userId) {
+        const taskModal = document.querySelector('.tasks');
+        taskModal.innerHTML = '';
+        const url =
+          'https://jsonplaceholder.typicode.com/todos?userId=' + userId;
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url); // false for synchronous request
+        xhr.onload = function () {
+          const users = JSON.parse(xhr.response);
+          for (const user of users) {
+            var li = document.createElement('li');
+            li.appendChild(document.createTextNode(user.title));
+
+            taskModal.appendChild(li);
+          }
+        };
+        xhr.send();
+        toggleModal();
+      }
+      modalBackdrop.addEventListener('click', toggleModal);
+
+      function toggleModal() {
+        displayModal.classList.toggle('visible');
+        modalBackdrop.classList.toggle('visible');
+      }
+    </script>
+  </body>
+</html>
